@@ -1,19 +1,19 @@
 <?php
-	error_reporting(E_ERROR | E_PARSE);
+error_reporting(E_ERROR | E_PARSE);
 
-	/*==== Nombre de impuesto*/
-	const IMPUESTO="IVA";
+/*==== Nombre de impuesto*/
+const IMPUESTO = "IVA";
 
-	/*==== Nombre de identificacion tributaria (Empresa)*/
-	const IDENTIFICACION="NIT";
+/*==== Nombre de identificacion tributaria (Empresa)*/
+const IDENTIFICACION = "RIF";
 
-	/*==== Nombre de identificacion tributaria (Proveedores)*/
-	const IDENTIFICACION2="NIT";
+/*==== Nombre de identificacion tributaria (Proveedores)*/
+const IDENTIFICACION2 = "RIF";
 
-	/*==== Nombre de identificacion usuarios*/
-	const DNI="DNI";
+/*==== Nombre de identificacion usuarios*/
+const DNI = "Cedula";
 
-	/*==== Formato de numeros de telefono
+/*==== Formato de numeros de telefono
 
 		VALOR            ==>      EJEMPLO RESULTADO EN LOS FORMULARIOS
 
@@ -22,4 +22,4 @@
 		99999999         ==>      77777777
 
 	*/
-	const PHONE="(999) 99999999";
+const PHONE = "(9999) 9999999";
