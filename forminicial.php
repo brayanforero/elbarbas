@@ -1,20 +1,8 @@
 <?php
 
-require_once './class/classconexion.php';
+require_once './class/funciones_basicas.php';
 
-$db = new DB;
-$con = $db->getConection();
-$pst = $con->prepare("SELECT nivel, COUNT(codigo) AS count FROM usuarios WHERE nivel = 'ADMINISTRADOR' AND status = 'ACTIVO' GROUP BY nivel;");
-$pst->execute();
-$rs = $pst->fetch(PDO::FETCH_ASSOC);
-
-if ($rs['count'] > 0) {
-  echo "<script type='text/javascript' language='javascript'>
-    alert('Ya existe un adminstrador registrado');
-    document.location = 'index'
-  </script>";
-  return;
-}
+isExistsAdmistrator();
 ?>
 
 <!DOCTYPE html>
