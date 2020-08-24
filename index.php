@@ -1,6 +1,19 @@
 <?php
 require_once "class/class.php";
 $tra = new Login();
+$db = new DB;
+$con = $db->getConection();
+$pst = $con->prepare("SELECT nivel, COUNT(codigo) AS count FROM usuarios WHERE nivel = 'ADMINISTRADOR' AND status = 'ACTIVO' GROUP BY nivel;");
+$pst->execute();
+$rs = $pst->fetch(PDO::FETCH_ASSOC);
+
+if ($rs['count'] == 0) {
+	echo "<script type='text/javascript' language='javascript'>
+    alert('Ya existe un adminstrador registrado');
+    document.location = 'forminicial'
+  </script>";
+	return;
+}
 
 if (isset($_POST['btn-login'])) {
 	$log = $tra->Logueo();
