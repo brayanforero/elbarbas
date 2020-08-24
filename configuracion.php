@@ -157,7 +157,7 @@ if (isset($_SESSION['acceso'])) {
 
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="panel panel-border panel-warning widget-s-1">
+                                <div class="panel panel-border panel-primary widget-s-1">
                                     <div class="panel-heading">
                                         <h4 class="mb"><i class="fa fa-edit"></i> Formulario de Configuración General</h4>
                                     </div>
