@@ -2,7 +2,119 @@
 Author: Ing. Ruben D. Chirinos R.
 URL: http://asesoramientopc.hol.es/
 */
+/* FUNCION JQUERY PARA VALIDAR REGISTRO DE USUARIOS ADMINSTRADOR */
 
+$("document").ready(function () {
+  /* validation */
+  $("#newAdminstrator").validate({
+    rules: {
+      cedula: { required: true, digits: true, minlength: 7 },
+      nombres: { required: true, lettersonly: true },
+      sexo: { required: true },
+      cargo: { required: true },
+      email: { required: true, email: true },
+      usuario: { required: true },
+      password: { required: true, minlength: 8 },
+      password2: { required: true, minlength: 8, equalTo: "#password" },
+      nivel: { required: true },
+    },
+    messages: {
+      cedula: {
+        required: "Ingrese C&eacute;dula de Usuario",
+        digits: "Ingrese solo digitos para C&eacute;dula",
+        minlength: "Ingrese 7 digitos como minimo",
+      },
+      nombres: { required: "Ingrese Nombre Completo de Usuario" },
+      sexo: { required: "Seleccione Sexo de Usuario" },
+      cargo: { required: "Ingrese Cargo de Usuario" },
+      email: {
+        required: "Ingrese Email de Usuario",
+        email: "Ingrese un Email Valido",
+      },
+      usuario: { required: "Ingrese Usuario de Acceso" },
+      password: {
+        required: "Ingrese Password de Acceso",
+        minlength: "Ingrese 8 caracteres como minimo",
+      },
+      password2: {
+        required: "Repita Password de Acceso",
+        minlength: "Ingrese 8 caracteres como minimo",
+        equalTo: "Este Password no coincide",
+      },
+      nivel: { required: "Seleccione Nivel de Acceso" },
+    },
+    submitHandler: submitForm,
+  });
+  /* validation */
+
+  /* form submit */
+  function submitForm() {
+    var data = $("#usuario").serialize();
+    var formData = new FormData($("#usuario")[0]);
+
+    $.ajax({
+      type: "POST",
+      url: "forusuario.php",
+      data: formData,
+      //necesario para subir archivos via ajax
+      cache: false,
+      contentType: false,
+      processData: false,
+      beforeSend: function () {
+        $("#error").fadeOut();
+        $("#btn-submit").html('<i class="fa fa-refresh"></i> Verificando...');
+      },
+      success: function (data) {
+        if (data == 1) {
+          $("#error").fadeIn(1000, function () {
+            $("#error").html(
+              '<center><div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><span class="fa fa-info-circle"></span> LOS CAMPOS NO PUEDEN IR VACIOS, VERIFIQUE NUEVAMENTE POR FAVOR !</div></center>'
+            );
+
+            $("#btn-submit").html('<span class="fa fa-save"></span> Registrar');
+          });
+        } else if (data == 2) {
+          $("#error").fadeIn(1000, function () {
+            $("#error").html(
+              '<center><div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><span class="fa fa-info-circle"></span> YA EXISTE UN USUARIO CON ESTE NUMERO DE C&Eacute;DULA, VERIFIQUE NUEVAMENTE POR FAVOR !</div></center>'
+            );
+
+            $("#btn-submit").html('<span class="fa fa-save"></span> Registrar');
+          });
+        } else if (data == 3) {
+          $("#error").fadeIn(1000, function () {
+            $("#error").html(
+              '<center><div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><span class="fa fa-info-circle"></span> ESTE CORREO ELECTRONICO YA SE ENCUENTRA REGISTRADO, VERIFIQUE NUEVAMENTE POR FAVOR !</div></center>'
+            );
+
+            $("#btn-submit").html('<span class="fa fa-save"></span> Registrar');
+          });
+        } else if (data == 4) {
+          $("#error").fadeIn(1000, function () {
+            $("#error").html(
+              '<center><div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><span class="fa fa-info-circle"></span> ESTE USUARIO YA SE ENCUENTRA REGISTRADO, VERIFIQUE NUEVAMENTE POR FAVOR !</div></center>'
+            );
+
+            $("#btn-submit").html('<span class="fa fa-save"></span> Registrar');
+          });
+        } else {
+          $("#error").fadeIn(1000, function () {
+            $("#error").html("<center> &nbsp; " + data + " </center>");
+            $("#usuario")[0].reset();
+            setTimeout(function () {
+              $("#error").html("");
+            }, 5000);
+            $("#btn-submit").html('<span class="fa fa-save"></span> Registrar');
+          });
+        }
+      },
+    });
+    return false;
+  }
+  /* form submit */
+});
+
+/*  FIN DE FUNCION PARA VALIDAR REGISTRO DE USUARIOS */
 /* FUNCION JQUERY PARA VALIDAR ACCESO DE USUARIOS*/
 $("document").ready(function () {
   $("#loginform").validate({
