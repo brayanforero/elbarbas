@@ -9,7 +9,6 @@ $rs = $pst->fetch(PDO::FETCH_ASSOC);
 
 if ($rs['count'] == 0) {
 	echo "<script type='text/javascript' language='javascript'>
-    alert('Ya existe un adminstrador registrado');
     document.location = 'forminicial'
   </script>";
 	return;
