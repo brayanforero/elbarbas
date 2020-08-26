@@ -3,18 +3,19 @@
 require_once './class/class.php';
 require_once './class/funciones_basicas.php';
 // session_start();
-$tra = new Login;
-$reg = null;
-// isExistsAdmistrator();
+
+isExistsAdmistrator();
 if (!empty($_SESSION['codigo'])) {
   echo "<script type='text/javascript' language='javascript'>
-            alert('Ya existe una sesion activa');
-            document.location = 'panel'
+  alert('Ya existe una sesion activa');
+  document.location = 'panel'
   </script>";
   exit;
 }
 
 if (isset($_POST['btn-submit'])) {
+  $tra = new Login;
+  $reg = null;
   $reg = $tra->RegistrarAdmin();
 }
 
