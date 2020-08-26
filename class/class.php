@@ -71,7 +71,7 @@ class Login extends Db
 		$num = $stmt->rowCount();
 		if ($num == 0) {
 			echo "<div class='alert alert-danger'>";
-			echo "<span class='fa fa-info-circle'></span> LOS DATOS INGRESADOS NO EXISTEN </div>";
+			echo "LOS DATOS INGRESADOS NO EXISTE O NO TIENES ACCESO AL SISTEMA </div>";
 			echo "</div>";
 			exit;
 		} else {
@@ -592,6 +592,12 @@ class Login extends Db
 					$nivel = strip_tags($_POST["nivel"]);
 					$status = strip_tags("ACTIVO");
 					$stmt->execute();
+
+
+					$query = "call reset_box()";
+					$stmt = $this->dbh->prepare($query);
+					$stmt->execute();
+
 
 					##################  SUBIR FOTO DE USUARIOS ######################################
 					//datos del arhivo  
