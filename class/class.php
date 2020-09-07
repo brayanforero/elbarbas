@@ -4313,7 +4313,8 @@ FROM
 				$this->dbh->commit();
 			} catch (Exception $e) {
 				$this->dbh->rollBack();
-				header("location: formventas?sale=falied");
+				echo "4";
+				exit;
 			}
 
 

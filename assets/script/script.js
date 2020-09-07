@@ -2638,6 +2638,16 @@ $("document").ready(function () {
                 '<span class="fa fa-save"></span> Registrar Ventas'
               );
             });
+          } else if (data == 4) {
+            $("#error").fadeIn(1000, function () {
+              $("#error").html(
+                '<center><div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><span class="fa fa-info-circle"></span>NO SE PUDO COMPLETAR SU OPERACION DEBIDO A QUE UNO DE LOS PRODUCTOS SELECCIONADOS TIENE UN STOCK INSUFICIENTE</div></center>'
+              );
+
+              $("#btn-submit").html(
+                '<span class="fa fa-save"></span> Registrar Ventas'
+              );
+            });
           } else {
             $("#error").fadeIn(1000, function () {
               $("#error").html("<center> &nbsp; " + data + " </center>");
