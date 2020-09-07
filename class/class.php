@@ -4160,154 +4160,162 @@ FROM
 			exit;
 		} else {
 
-			$query = " insert into ventas values (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); ";
-			$stmt = $this->dbh->prepare($query);
-			$stmt->bindParam(1, $codventa);
-			$stmt->bindParam(2, $codserieve);
-			$stmt->bindParam(3, $codautorizacionve);
-			$stmt->bindParam(4, $codcaja);
-			$stmt->bindParam(5, $codcliente);
-			$stmt->bindParam(6, $subtotalivasive);
-			$stmt->bindParam(7, $subtotalivanove);
-			$stmt->bindParam(8, $ivave);
-			$stmt->bindParam(9, $totalivave);
-			$stmt->bindParam(10, $descuentove);
-			$stmt->bindParam(11, $totaldescuentove);
-			$stmt->bindParam(12, $totalpago);
-			$stmt->bindParam(13, $totalpago2);
-			$stmt->bindParam(14, $tipopagove);
-			$stmt->bindParam(15, $formapagove);
-			$stmt->bindParam(16, $montopagado);
-			$stmt->bindParam(17, $montodevuelto);
-			$stmt->bindParam(18, $fechavencecredito);
-			$stmt->bindParam(19, $statusventa);
-			$stmt->bindParam(20, $fechaventa);
-			$stmt->bindParam(21, $codigo);
-
-			$codventa = strip_tags($_POST["codventa"]);
-			$codserieve = strip_tags($_POST["codserieve"]);
-			$codautorizacionve = strip_tags($_POST["codautorizacionve"]);
-			$codcaja = strip_tags($_POST["codcaja"]);
-			$codcliente = strip_tags($_POST["codcliente"]);
-			$subtotalivasive = strip_tags($_POST["txtsubtotal"]);
-			$subtotalivanove = strip_tags($_POST["txtsubtotal2"]);
-			$ivave = strip_tags($_POST["iva"]);
-			$totalivave = strip_tags($_POST["txtIva"]);
-			$descuentove = strip_tags($_POST["descuento"]);
-			$totaldescuentove = strip_tags($_POST["txtDescuento"]);
-			$totalpago = strip_tags($_POST["txtTotal"]);
-			$totalpago2 = strip_tags($_POST["txtTotalCompra"]);
-			$tipopagove = strip_tags($_POST["tipopagove"]);
-			if (strip_tags($_POST["tipopagove"] == "CONTADO")) {
-				$formapagove = strip_tags($_POST["formapagove"]);
-			} else {
-				$formapagove = "CREDITO";
-			}
-
-			if (strip_tags($_POST["tipopagove"] == "CONTADO" && $_POST["formapagove"] == "EFECTIVO")) {
-				$montopagado = strip_tags($_POST["montopagado"]);
-			} else {
-				$montopagado = "0.00";
-			}
-			if (strip_tags($_POST["tipopagove"] == "CONTADO" && $_POST["formapagove"] == "EFECTIVO")) {
-				$montodevuelto = strip_tags($_POST["montodevuelto"]);
-			} else {
-				$montodevuelto = "0.00";
-			}
-			if (strip_tags($_POST["tipopagove"] == "CREDITO")) {
-				$fechavencecredito = strip_tags(date("Y-m-d", strtotime($_POST['fechavencecredito'])));
-			} else {
-				$fechavencecredito = "0000-00-00";
-			}
-			if (strip_tags($_POST["tipopagove"] == "CONTADO")) {
-				$statusventa = strip_tags("PAGADA");
-			} else {
-				$statusventa = "PENDIENTE";
-			}
-			$fechaventa = strip_tags(date("Y-m-d h:i:s", strtotime($_POST['fecharegistro'])));
-			$codigo = strip_tags($_SESSION["codigo"]);
-			$stmt->execute();
-
-			$venta = $_SESSION["CarritoVentas"];
-			for ($i = 0; $i < count($venta); $i++) {
-
-				$query = " insert into detalleventas values (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); ";
+			try {
+				$this->dbh->beginTransaction();
+				$query = " insert into ventas values (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); ";
 				$stmt = $this->dbh->prepare($query);
 				$stmt->bindParam(1, $codventa);
-				$stmt->bindParam(2, $codcliente);
-				$stmt->bindParam(3, $codproducto);
-				$stmt->bindParam(4, $producto);
-				$stmt->bindParam(5, $codcategoria);
-				$stmt->bindParam(6, $cantidad);
-				$stmt->bindParam(7, $preciocompra);
-				$stmt->bindParam(8, $precioventa);
-				$stmt->bindParam(9, $ivaproducto);
-				$stmt->bindParam(10, $importe);
-				$stmt->bindParam(11, $importe2);
-				$stmt->bindParam(12, $fechadetalleventa);
-				$stmt->bindParam(13, $codigo);
+				$stmt->bindParam(2, $codserieve);
+				$stmt->bindParam(3, $codautorizacionve);
+				$stmt->bindParam(4, $codcaja);
+				$stmt->bindParam(5, $codcliente);
+				$stmt->bindParam(6, $subtotalivasive);
+				$stmt->bindParam(7, $subtotalivanove);
+				$stmt->bindParam(8, $ivave);
+				$stmt->bindParam(9, $totalivave);
+				$stmt->bindParam(10, $descuentove);
+				$stmt->bindParam(11, $totaldescuentove);
+				$stmt->bindParam(12, $totalpago);
+				$stmt->bindParam(13, $totalpago2);
+				$stmt->bindParam(14, $tipopagove);
+				$stmt->bindParam(15, $formapagove);
+				$stmt->bindParam(16, $montopagado);
+				$stmt->bindParam(17, $montodevuelto);
+				$stmt->bindParam(18, $fechavencecredito);
+				$stmt->bindParam(19, $statusventa);
+				$stmt->bindParam(20, $fechaventa);
+				$stmt->bindParam(21, $codigo);
 
-				$codventa = strip_tags($_POST['codventa']);
+				$codventa = strip_tags($_POST["codventa"]);
+				$codserieve = strip_tags($_POST["codserieve"]);
+				$codautorizacionve = strip_tags($_POST["codautorizacionve"]);
+				$codcaja = strip_tags($_POST["codcaja"]);
 				$codcliente = strip_tags($_POST["codcliente"]);
-				$codproducto = strip_tags($venta[$i]['txtCodigo']);
-				$producto = strip_tags($venta[$i]['descripcion']);
-				$codcategoria = strip_tags($venta[$i]['tipo']);
-				$cantidad = strip_tags($venta[$i]['cantidad']);
-				$preciocompra = strip_tags($venta[$i]['precio']);
-				$precioventa = strip_tags($venta[$i]['precio2']);
-				$ivaproducto = strip_tags($venta[$i]['ivaproducto']);
-				$importe = strip_tags($venta[$i]['cantidad'] * $venta[$i]['precio2']);
-				$importe2 = strip_tags($venta[$i]['cantidad'] * $venta[$i]['precio']);
-				$fechadetalleventa = strip_tags(date("Y-m-d h:i:s", strtotime($_POST['fecharegistro'])));
-				$codigo = strip_tags($_SESSION['codigo']);
+				$subtotalivasive = strip_tags($_POST["txtsubtotal"]);
+				$subtotalivanove = strip_tags($_POST["txtsubtotal2"]);
+				$ivave = strip_tags($_POST["iva"]);
+				$totalivave = strip_tags($_POST["txtIva"]);
+				$descuentove = strip_tags($_POST["descuento"]);
+				$totaldescuentove = strip_tags($_POST["txtDescuento"]);
+				$totalpago = strip_tags($_POST["txtTotal"]);
+				$totalpago2 = strip_tags($_POST["txtTotalCompra"]);
+				$tipopagove = strip_tags($_POST["tipopagove"]);
+				if (strip_tags($_POST["tipopagove"] == "CONTADO")) {
+					$formapagove = strip_tags($_POST["formapagove"]);
+				} else {
+					$formapagove = "CREDITO";
+				}
+
+				if (strip_tags($_POST["tipopagove"] == "CONTADO" && $_POST["formapagove"] == "EFECTIVO")) {
+					$montopagado = strip_tags($_POST["montopagado"]);
+				} else {
+					$montopagado = "0.00";
+				}
+				if (strip_tags($_POST["tipopagove"] == "CONTADO" && $_POST["formapagove"] == "EFECTIVO")) {
+					$montodevuelto = strip_tags($_POST["montodevuelto"]);
+				} else {
+					$montodevuelto = "0.00";
+				}
+				if (strip_tags($_POST["tipopagove"] == "CREDITO")) {
+					$fechavencecredito = strip_tags(date("Y-m-d", strtotime($_POST['fechavencecredito'])));
+				} else {
+					$fechavencecredito = "0000-00-00";
+				}
+				if (strip_tags($_POST["tipopagove"] == "CONTADO")) {
+					$statusventa = strip_tags("PAGADA");
+				} else {
+					$statusventa = "PENDIENTE";
+				}
+				$fechaventa = strip_tags(date("Y-m-d h:i:s", strtotime($_POST['fecharegistro'])));
+				$codigo = strip_tags($_SESSION["codigo"]);
 				$stmt->execute();
 
-				$sql = " update productos set "
-					. " existencia = ? "
-					. " where "
-					. " codproducto = '" . $venta[$i]['txtCodigo'] . "';
+				$venta = $_SESSION["CarritoVentas"];
+				for ($i = 0; $i < count($venta); $i++) {
+
+					$query = " insert into detalleventas values (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); ";
+					$stmt = $this->dbh->prepare($query);
+					$stmt->bindParam(1, $codventa);
+					$stmt->bindParam(2, $codcliente);
+					$stmt->bindParam(3, $codproducto);
+					$stmt->bindParam(4, $producto);
+					$stmt->bindParam(5, $codcategoria);
+					$stmt->bindParam(6, $cantidad);
+					$stmt->bindParam(7, $preciocompra);
+					$stmt->bindParam(8, $precioventa);
+					$stmt->bindParam(9, $ivaproducto);
+					$stmt->bindParam(10, $importe);
+					$stmt->bindParam(11, $importe2);
+					$stmt->bindParam(12, $fechadetalleventa);
+					$stmt->bindParam(13, $codigo);
+
+					$codventa = strip_tags($_POST['codventa']);
+					$codcliente = strip_tags($_POST["codcliente"]);
+					$codproducto = strip_tags($venta[$i]['txtCodigo']);
+					$producto = strip_tags($venta[$i]['descripcion']);
+					$codcategoria = strip_tags($venta[$i]['tipo']);
+					$cantidad = strip_tags($venta[$i]['cantidad']);
+					$preciocompra = strip_tags($venta[$i]['precio']);
+					$precioventa = strip_tags($venta[$i]['precio2']);
+					$ivaproducto = strip_tags($venta[$i]['ivaproducto']);
+					$importe = strip_tags($venta[$i]['cantidad'] * $venta[$i]['precio2']);
+					$importe2 = strip_tags($venta[$i]['cantidad'] * $venta[$i]['precio']);
+					$fechadetalleventa = strip_tags(date("Y-m-d h:i:s", strtotime($_POST['fecharegistro'])));
+					$codigo = strip_tags($_SESSION['codigo']);
+					$stmt->execute();
+
+					$sql = " update productos set "
+						. " existencia = ? "
+						. " where "
+						. " codproducto = '" . $venta[$i]['txtCodigo'] . "';
 			   ";
-				$stmt = $this->dbh->prepare($sql);
-				$stmt->bindParam(1, $existencia);
-				$existencia = $venta[$i]['existencia'] - $venta[$i]['cantidad'];
-				$stmt->execute();
+					$stmt = $this->dbh->prepare($sql);
+					$stmt->bindParam(1, $existencia);
+					$existencia = $venta[$i]['existencia'] - $venta[$i]['cantidad'];
+					$stmt->execute();
 
-				$sql = " delete from detalleventas where codventa = ? and cantventa = '0'";
-				$stmt = $this->dbh->prepare($sql);
-				$stmt->bindParam(1, $codventa);
-				$codventa = $_POST["codventa"];
-				$stmt->execute();
+					$sql = " delete from detalleventas where codventa = ? and cantventa = '0'";
+					$stmt = $this->dbh->prepare($sql);
+					$stmt->bindParam(1, $codventa);
+					$codventa = $_POST["codventa"];
+					$stmt->execute();
 
-				##################### REGISTRAMOS LOS DATOS DE PRODUCTOS EN KARDEX ####################################
-				$query = " insert into kardex values (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); ";
-				$stmt = $this->dbh->prepare($query);
-				$stmt->bindParam(1, $codventa);
-				$stmt->bindParam(2, $codcliente);
-				$stmt->bindParam(3, $codproducto);
-				$stmt->bindParam(4, $movimiento);
-				$stmt->bindParam(5, $entradas);
-				$stmt->bindParam(6, $salidas);
-				$stmt->bindParam(7, $stockactual);
-				$stmt->bindParam(8, $preciounit);
-				$stmt->bindParam(9, $costototal);
-				$stmt->bindParam(10, $documento);
-				$stmt->bindParam(11, $fechakardex);
+					##################### REGISTRAMOS LOS DATOS DE PRODUCTOS EN KARDEX ####################################
+					$query = " insert into kardex values (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); ";
+					$stmt = $this->dbh->prepare($query);
+					$stmt->bindParam(1, $codventa);
+					$stmt->bindParam(2, $codcliente);
+					$stmt->bindParam(3, $codproducto);
+					$stmt->bindParam(4, $movimiento);
+					$stmt->bindParam(5, $entradas);
+					$stmt->bindParam(6, $salidas);
+					$stmt->bindParam(7, $stockactual);
+					$stmt->bindParam(8, $preciounit);
+					$stmt->bindParam(9, $costototal);
+					$stmt->bindParam(10, $documento);
+					$stmt->bindParam(11, $fechakardex);
 
-				$codventa = strip_tags($_POST['codventa']);
-				$codcliente = strip_tags($_POST["codcliente"]);
-				$codproducto = strip_tags($venta[$i]['txtCodigo']);
-				$movimiento = strip_tags("SALIDAS");
-				$entradas = strip_tags("0");
-				$salidas = strip_tags($venta[$i]['cantidad']);
-				$stockactual = strip_tags($venta[$i]['existencia'] - $venta[$i]['cantidad']);
-				$preciounit = strip_tags($venta[$i]['precio2']);
-				$costototal = strip_tags($venta[$i]['precio2'] * $venta[$i]['cantidad']);
-				$documento = strip_tags("VENTA - " . $_POST["tipopagove"] . " - FACTURA: " . $_POST['codventa']);
-				$fechakardex = strip_tags(date("Y-m-d h:i:s", strtotime($_POST['fecharegistro'])));
-				$stmt->execute();
+					$codventa = strip_tags($_POST['codventa']);
+					$codcliente = strip_tags($_POST["codcliente"]);
+					$codproducto = strip_tags($venta[$i]['txtCodigo']);
+					$movimiento = strip_tags("SALIDAS");
+					$entradas = strip_tags("0");
+					$salidas = strip_tags($venta[$i]['cantidad']);
+					$stockactual = strip_tags($venta[$i]['existencia'] - $venta[$i]['cantidad']);
+					$preciounit = strip_tags($venta[$i]['precio2']);
+					$costototal = strip_tags($venta[$i]['precio2'] * $venta[$i]['cantidad']);
+					$documento = strip_tags("VENTA - " . $_POST["tipopagove"] . " - FACTURA: " . $_POST['codventa']);
+					$fechakardex = strip_tags(date("Y-m-d h:i:s", strtotime($_POST['fecharegistro'])));
+					$stmt->execute();
+				}
+				###### AQUI DESTRUIMOS TODAS LAS VARIABLES DE SESSION QUE RECIBIMOS EN CARRITO DE VENTAS ######
+				unset($_SESSION["CarritoVentas"]);
+				$this->dbh->commit();
+			} catch (Exception $e) {
+				$this->dbh->rollBack();
+				header("location: formventas?sale=falied");
 			}
-			###### AQUI DESTRUIMOS TODAS LAS VARIABLES DE SESSION QUE RECIBIMOS EN CARRITO DE VENTAS ######
-			unset($_SESSION["CarritoVentas"]);
+
 
 			############## REGISTRO DE ABONOS EN VENTAS ##################
 			if (strip_tags($_POST["tipopagove"] == "CREDITO" && $_POST["montoabono"] != "0.00")) {
