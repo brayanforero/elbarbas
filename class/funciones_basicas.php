@@ -1,7 +1,6 @@
 <?php
 
 ## funcion para verificar si ya existe un usuario adminstrador
-
 function isExistsAdmistrator()
 {
     require_once './class/classconexion.php';
@@ -19,6 +18,22 @@ function isExistsAdmistrator()
         exit;
     }
 }
+## verificacion de stock para la venta
+function validStockForSale($quantity, $code)
+{
+    require_once './class/classconexion.php';
+    $db = new DB;
+    $con = $db->getConection();
+    $pst = $con->prepare("SELECT existencia as stock FROM productos
+        WHERE codproducto = ?
+        ");
+    $pst->bindParam(1, $code);
+    $pst->execute();
+    $rs = $pst->fetch(PDO::FETCH_ASSOC);
+    if ($rs['stock'] < $quantity) return false;
+    return true;
+}
+
 ## funcion para prevenir ataques XSS
 function limpiar($tags)
 {
@@ -79,7 +94,7 @@ function limpiarEntrada($texto)
 
 function edad($fecha_nac)
 {
-    //Esta funcion toma una fecha de nacimiento 
+    //Esta funcion toma una fecha de nacimiento
     //desde una base de datos mysql
     //en formato aaaa/mm/dd y calcula la edad en numeros enteros
 
@@ -161,7 +176,7 @@ function GenerateRandomString($length = 10)
     return $randomString;
 }
 
-//M�todo con str_shuffle() 
+//M�todo con str_shuffle()
 function generateRandomString2($length = 10)
 {
     return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);

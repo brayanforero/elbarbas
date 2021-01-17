@@ -435,10 +435,10 @@ class Login extends Db
 							$nombre_archivo = $_FILES['imagen']['name'];
 							$tipo_archivo = $_FILES['imagen']['type'];
 							$tamano_archivo = $_FILES['imagen']['size'];
-							//compruebo si las caracter�sticas del archivo son las que deseo  
+							//compruebo si las caracter�sticas del archivo son las que deseo
 							if ($tipo_archivo == 'image/jpeg' && $tamano_archivo <= 204800) {
 
-								## se puede dar otro aviso 
+								## se puede dar otro aviso
 							} else {
 								echo "<div class='alert alert-error'>";
 								echo "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
@@ -484,7 +484,7 @@ class Login extends Db
 					$stmt->execute();
 
 					##################  SUBIR FOTO DE USUARIOS ######################################
-					//datos del arhivo  
+					//datos del arhivo
 					if ($nombre_archivo != "" && $tipo_archivo != "") {
 						if (move_uploaded_file($_FILES['imagen']['tmp_name'], "fotos/" . $nombre_archivo) && rename("fotos/" . $nombre_archivo, "fotos/" . $_POST["cedula"] . ".jpg")) {
 							$textImg = "";
@@ -545,10 +545,10 @@ class Login extends Db
 							$nombre_archivo = $_FILES['imagen']['name'];
 							$tipo_archivo = $_FILES['imagen']['type'];
 							$tamano_archivo = $_FILES['imagen']['size'];
-							//compruebo si las caracter�sticas del archivo son las que deseo  
+							//compruebo si las caracter�sticas del archivo son las que deseo
 							if ($tipo_archivo == 'image/jpeg' && $tamano_archivo <= 204800) {
 
-								## se puede dar otro aviso 
+								## se puede dar otro aviso
 							} else {
 								echo "<div class='alert alert-error'>";
 								echo "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
@@ -600,7 +600,7 @@ class Login extends Db
 
 
 					##################  SUBIR FOTO DE USUARIOS ######################################
-					//datos del arhivo  
+					//datos del arhivo
 					if ($nombre_archivo != "" && $tipo_archivo != "") {
 						if (move_uploaded_file($_FILES['imagen']['tmp_name'], "fotos/" . $nombre_archivo) && rename("fotos/" . $nombre_archivo, "fotos/" . $_POST["cedula"] . ".jpg")) {
 							$textImg = "";
@@ -713,10 +713,10 @@ class Login extends Db
 							$nombre_archivo = $_FILES['imagen']['name'];
 							$tipo_archivo = $_FILES['imagen']['type'];
 							$tamano_archivo = $_FILES['imagen']['size'];
-							//compruebo si las caracter�sticas del archivo son las que deseo  
+							//compruebo si las caracter�sticas del archivo son las que deseo
 							if ($tipo_archivo == 'image/jpeg' && $tamano_archivo <= 204800) {
 
-								## se puede dar otro aviso 
+								## se puede dar otro aviso
 							} else {
 								echo "<div class='alert alert-error'>";
 								echo "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
@@ -776,7 +776,7 @@ class Login extends Db
 					$stmt->execute();
 
 					##################  SUBIR FOTO DE USUARIOS ######################################
-					//datos del arhivo  
+					//datos del arhivo
 					if ($nombre_archivo != "" && $tipo_archivo != "") {
 						if (move_uploaded_file($_FILES['imagen']['tmp_name'], "fotos/" . $nombre_archivo) && rename("fotos/" . $nombre_archivo, "fotos/" . $_POST["cedula"] . ".jpg")) {
 							$textImg = "";
@@ -1680,7 +1680,7 @@ class Login extends Db
 			##################### REGISTRAMOS LOS DATOS DE PRODUCTOS EN KARDEX ####################################
 
 			##################  SUBIR FOTO DE PRODUCTO ######################################
-			//datos del arhivo  
+			//datos del arhivo
 			if (isset($_FILES['imagen']['name'])) {
 				$nombre_archivo = $_FILES['imagen']['name'];
 			} else {
@@ -1696,12 +1696,12 @@ class Login extends Db
 			} else {
 				$tamano_archivo = '';
 			}
-			//compruebo si las caracter�sticas del archivo son las que deseo  
+			//compruebo si las caracter�sticas del archivo son las que deseo
 			if ((strpos($tipo_archivo, 'image/jpeg') !== false) && $tamano_archivo < 200000) {
 				if (move_uploaded_file($_FILES['imagen']['tmp_name'], "fotos/" . $nombre_archivo) && rename("fotos/" . $nombre_archivo, "fotos/" . $codproducto . ".jpg")) {
 					## se puede dar un aviso
 				}
-				## se puede dar otro aviso 
+				## se puede dar otro aviso
 			}
 			##################  FINALIZA SUBIR FOTO DE PRODUCTO ######################################
 
@@ -1734,10 +1734,10 @@ class Login extends Db
 	public function ListarProductosVendidos()
 	{
 		self::SetNames();
-		$sql = "SELECT 
-  productos.codproducto, productos.producto, productos.codcategoria, productos.precioventa, productos.existencia, productos.stockminimo, categorias.nomcategoria, SUM(detalleventas.cantventa) as cantidad 
+		$sql = "SELECT
+  productos.codproducto, productos.producto, productos.codcategoria, productos.precioventa, productos.existencia, productos.stockminimo, categorias.nomcategoria, SUM(detalleventas.cantventa) as cantidad
 FROM
- (productos LEFT OUTER JOIN detalleventas ON productos.codproducto=detalleventas.codproducto) LEFT OUTER JOIN categorias ON 
+ (productos LEFT OUTER JOIN detalleventas ON productos.codproducto=detalleventas.codproducto) LEFT OUTER JOIN categorias ON
  categorias.codcategoria=productos.codcategoria WHERE detalleventas.codproducto is not null GROUP BY productos.codproducto";
 
 		foreach ($this->dbh->query($sql) as $row) {
@@ -1886,7 +1886,7 @@ FROM
 		$codalmacen = strip_tags($_POST["codalmacen"]);
 		$stmt->execute();
 
-		###################### ACTUALIZAMOS LOS DATOS DEL PRODUCTO EN KARDEX ############################		
+		###################### ACTUALIZAMOS LOS DATOS DEL PRODUCTO EN KARDEX ############################
 		$sql2 = " update kardex set "
 			. " entradas = ?, "
 			. " preciounit = ?, "
@@ -1910,7 +1910,7 @@ FROM
 		###################### ACTUALIZAMOS LOS DATOS DEL PRODUCTO EN KARDEX ############################
 
 		##################  SUBIR FOTO DE PRODUCTO ######################################
-		//datos del arhivo  
+		//datos del arhivo
 		if (isset($_FILES['imagen']['name'])) {
 			$nombre_archivo = $_FILES['imagen']['name'];
 		} else {
@@ -1926,12 +1926,12 @@ FROM
 		} else {
 			$tamano_archivo = '';
 		}
-		//compruebo si las caracter�sticas del archivo son las que deseo  
+		//compruebo si las caracter�sticas del archivo son las que deseo
 		if ((strpos($tipo_archivo, 'image/jpeg') !== false) && $tamano_archivo < 200000) {
 			if (move_uploaded_file($_FILES['imagen']['tmp_name'], "fotos/" . $nombre_archivo) && rename("fotos/" . $nombre_archivo, "fotos/" . $codproducto . ".jpg")) {
 				## se puede dar un aviso
 			}
-			## se puede dar otro aviso 
+			## se puede dar otro aviso
 		}
 		##################  FINALIZA SUBIR FOTO DE PRODUCTO ######################################
 
@@ -2309,7 +2309,7 @@ FROM
 	##################################  FUNCION PARA REGISTRAR CLIENTES  #############################
 
 
-	##################################   FUNCION PARA LISTAR CLIENTES  ################################## 
+	##################################   FUNCION PARA LISTAR CLIENTES  ##################################
 	public function ListarClientes()
 	{
 		self::SetNames();
@@ -2320,7 +2320,7 @@ FROM
 		return $this->p;
 		$this->dbh = null;
 	}
-	##################################   FIN DE FUNCION PARA LISTAR CLIENTES  ################################## 
+	##################################   FIN DE FUNCION PARA LISTAR CLIENTES  ##################################
 
 
 	#################################################### FUNCION PARA SELECCIONAR CLIENTE ##################################################
@@ -2495,7 +2495,7 @@ FROM
 	##################################  FUNCION PARA REGISTRAR PROVEEDORES  #############################
 
 
-	##################################   FUNCION PARA LISTAR PROVEEDORES  ################################## 
+	##################################   FUNCION PARA LISTAR PROVEEDORES  ##################################
 	public function ListarProveedores()
 	{
 		self::SetNames();
@@ -2506,7 +2506,7 @@ FROM
 		return $this->p;
 		$this->dbh = null;
 	}
-	################################## FIN DE FUNCION PARA LISTAR PROVEEDORES  ################################## 
+	################################## FIN DE FUNCION PARA LISTAR PROVEEDORES  ##################################
 
 	#################################################### FUNCION PARA SELECCIONAR PROVEEDORES ##################################################
 	public function ProveedoresPorId()
@@ -2768,7 +2768,7 @@ FROM
 	###################################### FIN DE FUNCION PARA REGISTRAR PEDIDOS DE PRODUCTOS ######################################
 
 
-	###################################### FUNCION PARA LISTAR PEDIDOS DE PRODUCTOS ###################################### 
+	###################################### FUNCION PARA LISTAR PEDIDOS DE PRODUCTOS ######################################
 	public function ListarPedidos()
 	{
 		self::SetNames();
@@ -3327,7 +3327,7 @@ FROM
 					$existencia = $cantidad + $cantidanterior;
 					$codigo = strip_tags($compra[$i]['txtCodigo']);
 					$stmt->execute();
-					##################### ACTUALIZAMOS LA EXISTENCIA DE PRODUCTOS COMPRADOS ####################################		
+					##################### ACTUALIZAMOS LA EXISTENCIA DE PRODUCTOS COMPRADOS ####################################
 
 					$sql = " delete from detallecompras where codcompra = ? and cantcompra = '0'";
 					$stmt = $this->dbh->prepare($sql);
@@ -3362,7 +3362,7 @@ FROM
 					$documento = strip_tags("COMPRA - " . $_POST["tipocompra"] . " - FACTURA: " . $_POST['codcompra']);
 					$fechakardex = strip_tags(date("Y-m-d", strtotime($_POST['fecharegistro'])));
 					$stmt->execute();
-					##################### REGISTRAMOS LOS DATOS DE PRODUCTOS EN KARDEX ####################################		
+					##################### REGISTRAMOS LOS DATOS DE PRODUCTOS EN KARDEX ####################################
 				}
 			}
 			###### AQUI DESTRUIMOS TODAS LAS VARIABLES DE SESSION QUE RECIBIMOS EN CARRITO DE COMPRA ######
@@ -3376,7 +3376,7 @@ FROM
 	}
 	######################################  FIN DE FUNCION PARA REGISTRAR COMPRAS DE PRODUCTOS  ######################################
 
-	######################################  FUNCION PARA LISTAR COMPRAS DE PRODUCTOS ###################################### 
+	######################################  FUNCION PARA LISTAR COMPRAS DE PRODUCTOS ######################################
 	public function ListarCompras()
 	{
 		self::SetNames();
@@ -3616,7 +3616,7 @@ FROM
 		$stmt->execute();
 
 
-		###################### ACTUALIZAMOS LOS DATOS DEL PRODUCTO EN KARDEX ############################		
+		###################### ACTUALIZAMOS LOS DATOS DEL PRODUCTO EN KARDEX ############################
 		$sql2 = " update kardex set "
 			. " entradas = ?, "
 			. " stockactual = ?, "
@@ -4232,6 +4232,12 @@ FROM
 
 				$venta = $_SESSION["CarritoVentas"];
 				for ($i = 0; $i < count($venta); $i++) {
+					$isValid = validStockForSale($venta[$i]['cantidad'], $venta[$i]['txtCodigo']);
+					if (!$isValid){
+						$this->dbh->rollBack();
+						echo "4";
+						exit;
+					}
 
 					$query = " insert into detalleventas values (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); ";
 					$stmt = $this->dbh->prepare($query);
@@ -4354,7 +4360,7 @@ FROM
 	}
 	######################################  FIN DE FUNCION PARA REGISTRAR VENTAS DE PRODUCTOS  ######################################
 
-	######################################   FUNCION PARA LISTAR VENTAS DE PRODUCTOS  ###################################### 
+	######################################   FUNCION PARA LISTAR VENTAS DE PRODUCTOS  ######################################
 	public function ListarVentas()
 	{
 		self::SetNames();
@@ -4377,7 +4383,7 @@ FROM
 			$this->dbh = null;
 		}
 	}
-	######################################  FIN DE FUNCION PARA LISTAR VENTAS DE PRODUCTOS ###################################### 
+	######################################  FIN DE FUNCION PARA LISTAR VENTAS DE PRODUCTOS ######################################
 
 
 	######################################  FUNCION PARA LISTAR DETALLES DE VENTAS DE PRODUCTOS  ######################################
@@ -4523,7 +4529,7 @@ FROM
 		$existencia = $existenciadb - $calculoproducto;
 		$stmt->execute();
 
-		###################### ACTUALIZAMOS LOS DATOS DEL PRODUCTO EN KARDEX ############################		
+		###################### ACTUALIZAMOS LOS DATOS DEL PRODUCTO EN KARDEX ############################
 		$sql2 = " update kardex set "
 			. " salidas = ?, "
 			. " preciounit = ?, "
@@ -4853,7 +4859,7 @@ FROM
 	public function BuscarVentasFechas()
 	{
 		self::SetNames();
-		$sql = "SELECT detalleventas.codventa, cajas.nrocaja, ventas.codcaja, ventas.subtotalivasive, ventas.subtotalivanove, ventas.ivave, ventas.totalivave,  ventas.descuentove, ventas.totaldescuentove, ventas.totalpago, ventas.totalpago2, ventas.fechavencecredito, ventas.statusventa, ventas.fechaventa, clientes.nomcliente, SUM(detalleventas.cantventa) as articulos FROM (detalleventas LEFT JOIN ventas ON detalleventas.fechadetalleventa=ventas.fechaventa) 
+		$sql = "SELECT detalleventas.codventa, cajas.nrocaja, ventas.codcaja, ventas.subtotalivasive, ventas.subtotalivanove, ventas.ivave, ventas.totalivave,  ventas.descuentove, ventas.totaldescuentove, ventas.totalpago, ventas.totalpago2, ventas.fechavencecredito, ventas.statusventa, ventas.fechaventa, clientes.nomcliente, SUM(detalleventas.cantventa) as articulos FROM (detalleventas LEFT JOIN ventas ON detalleventas.fechadetalleventa=ventas.fechaventa)
 LEFT JOIN cajas ON cajas.codcaja=ventas.codcaja LEFT JOIN clientes ON ventas.codcliente=clientes.codcliente WHERE DATE_FORMAT(ventas.fechaventa,'%Y-%m-%d') >= ? AND DATE_FORMAT(ventas.fechaventa,'%Y-%m-%d') <= ? GROUP BY detalleventas.codventa";
 		$stmt = $this->dbh->prepare($sql);
 		$stmt->bindValue(1, trim(date("Y-m-d", strtotime($_GET['desde']))));
@@ -4880,7 +4886,7 @@ LEFT JOIN cajas ON cajas.codcaja=ventas.codcaja LEFT JOIN clientes ON ventas.cod
 	public function BuscarVentasCajas()
 	{
 		self::SetNames();
-		$sql = "SELECT detalleventas.codventa, cajas.nrocaja, ventas.codcaja, ventas.subtotalivasive, ventas.subtotalivanove, ventas.ivave, ventas.totalivave,  ventas.descuentove, ventas.totaldescuentove, ventas.totalpago, ventas.totalpago2, ventas.fechavencecredito, ventas.statusventa, ventas.fechaventa, clientes.nomcliente, SUM(detalleventas.cantventa) as articulos FROM (detalleventas LEFT JOIN ventas ON detalleventas.fechadetalleventa=ventas.fechaventa) 
+		$sql = "SELECT detalleventas.codventa, cajas.nrocaja, ventas.codcaja, ventas.subtotalivasive, ventas.subtotalivanove, ventas.ivave, ventas.totalivave,  ventas.descuentove, ventas.totaldescuentove, ventas.totalpago, ventas.totalpago2, ventas.fechavencecredito, ventas.statusventa, ventas.fechaventa, clientes.nomcliente, SUM(detalleventas.cantventa) as articulos FROM (detalleventas LEFT JOIN ventas ON detalleventas.fechadetalleventa=ventas.fechaventa)
 LEFT JOIN cajas ON cajas.codcaja=ventas.codcaja LEFT JOIN clientes ON ventas.codcliente=clientes.codcliente WHERE ventas.codcaja = ? AND DATE_FORMAT(ventas.fechaventa,'%Y-%m-%d') >= ? AND DATE_FORMAT(ventas.fechaventa,'%Y-%m-%d') <= ? GROUP BY detalleventas.codventa";
 		$stmt = $this->dbh->prepare($sql);
 		$stmt->bindValue(1, trim($_GET['codcaja']));
@@ -4907,7 +4913,7 @@ LEFT JOIN cajas ON cajas.codcaja=ventas.codcaja LEFT JOIN clientes ON ventas.cod
 	public function BuscarVentasProductos()
 	{
 		self::SetNames();
-		$sql = "SELECT productos.codproducto, productos.producto, productos.codcategoria, productos.precioventa, productos.existencia, categorias.nomcategoria, SUM(detalleventas.cantventa) as cantidad FROM (productos LEFT JOIN detalleventas ON productos.codproducto=detalleventas.codproducto) 
+		$sql = "SELECT productos.codproducto, productos.producto, productos.codcategoria, productos.precioventa, productos.existencia, categorias.nomcategoria, SUM(detalleventas.cantventa) as cantidad FROM (productos LEFT JOIN detalleventas ON productos.codproducto=detalleventas.codproducto)
 LEFT JOIN categorias ON categorias.codcategoria=productos.codcategoria WHERE DATE_FORMAT(detalleventas.fechadetalleventa,'%Y-%m-%d') >= ? AND DATE_FORMAT(detalleventas.fechadetalleventa,'%Y-%m-%d') <= ? GROUP BY detalleventas.codproducto, detalleventas.precioventa ORDER BY productos.codproducto ASC";
 		$stmt = $this->dbh->prepare($sql);
 		$stmt->bindValue(1, trim(date("Y-m-d", strtotime($_GET['desde']))));
@@ -4936,7 +4942,7 @@ LEFT JOIN categorias ON categorias.codcategoria=productos.codcategoria WHERE DAT
 
 		if ($_SESSION['acceso'] == "administrador") {
 
-			$sql = "SELECT detalleventas.codventa, cajas.nrocaja, ventas.codcaja, ventas.subtotalivasive, ventas.subtotalivanove, ventas.ivave, ventas.totalivave,  ventas.descuentove, ventas.totaldescuentove, ventas.totalpago, ventas.totalpago2, ventas.fechaventa, clientes.nomcliente, SUM(detalleventas.cantventa) as articulos FROM (detalleventas LEFT JOIN ventas ON detalleventas.fechadetalleventa=ventas.fechaventa) 
+			$sql = "SELECT detalleventas.codventa, cajas.nrocaja, ventas.codcaja, ventas.subtotalivasive, ventas.subtotalivanove, ventas.ivave, ventas.totalivave,  ventas.descuentove, ventas.totaldescuentove, ventas.totalpago, ventas.totalpago2, ventas.fechaventa, clientes.nomcliente, SUM(detalleventas.cantventa) as articulos FROM (detalleventas LEFT JOIN ventas ON detalleventas.fechadetalleventa=ventas.fechaventa)
 LEFT JOIN cajas ON cajas.codcaja=ventas.codcaja LEFT JOIN clientes ON ventas.codcliente=clientes.codcliente WHERE DATE_FORMAT(fechaventa,'%Y-%m-%d') = '" . date('Y-m-d') . "' GROUP BY detalleventas.codventa";
 			foreach ($this->dbh->query($sql) as $row) {
 				$this->p[] = $row;
@@ -4945,7 +4951,7 @@ LEFT JOIN cajas ON cajas.codcaja=ventas.codcaja LEFT JOIN clientes ON ventas.cod
 			$this->dbh = null;
 		} else {
 
-			$sql = "SELECT detalleventas.codventa, cajas.nrocaja, ventas.codcaja, ventas.subtotalivasive, ventas.subtotalivanove, ventas.ivave, ventas.totalivave,  ventas.descuentove, ventas.totaldescuentove, ventas.totalpago, ventas.totalpago2, ventas.fechaventa, clientes.nomcliente, SUM(detalleventas.cantventa) as articulos FROM (detalleventas LEFT JOIN ventas ON detalleventas.fechadetalleventa=ventas.fechaventa) 
+			$sql = "SELECT detalleventas.codventa, cajas.nrocaja, ventas.codcaja, ventas.subtotalivasive, ventas.subtotalivanove, ventas.ivave, ventas.totalivave,  ventas.descuentove, ventas.totaldescuentove, ventas.totalpago, ventas.totalpago2, ventas.fechaventa, clientes.nomcliente, SUM(detalleventas.cantventa) as articulos FROM (detalleventas LEFT JOIN ventas ON detalleventas.fechadetalleventa=ventas.fechaventa)
 LEFT JOIN cajas ON cajas.codcaja=ventas.codcaja LEFT JOIN clientes ON ventas.codcliente=clientes.codcliente WHERE ventas.codigo = '" . $_SESSION["codigo"] . "' AND  DATE_FORMAT(fechaventa,'%Y-%m-%d') = '" . date('Y-m-d') . "' GROUP BY detalleventas.codventa";
 			foreach ($this->dbh->query($sql) as $row) {
 				$this->p[] = $row;
@@ -4999,10 +5005,10 @@ LEFT JOIN cajas ON cajas.codcaja=ventas.codcaja LEFT JOIN clientes ON ventas.cod
 	public function BuscarClientesAbonos()
 	{
 		self::SetNames();
-		$sql = "SELECT 
+		$sql = "SELECT
   ventas.codventa, ventas.totalpago, ventas.fechavencecredito, ventas.statusventa, ventas.fechaventa, abonoscreditos.fechaabono, SUM(abonoscreditos.montoabono) as abonototal, clientes.codcliente, clientes.cedcliente, clientes.nomcliente, clientes.tlfcliente, clientes.emailcliente, cajas.nrocaja
 FROM
- (ventas LEFT JOIN abonoscreditos ON ventas.codventa=abonoscreditos.codventa) LEFT JOIN clientes ON 
+ (ventas LEFT JOIN abonoscreditos ON ventas.codventa=abonoscreditos.codventa) LEFT JOIN clientes ON
  clientes.codcliente=ventas.codcliente LEFT JOIN cajas ON ventas.codcaja = cajas.codcaja WHERE ventas.codcliente = ? AND ventas.tipopagove ='CREDITO' GROUP BY ventas.codventa";
 		$stmt = $this->dbh->prepare($sql);
 		$stmt->execute(array($_GET["codcliente"]));
@@ -5124,15 +5130,15 @@ FROM
 	}
 	######################################  FIN DE FUNCION PARA REGISTRAR DEVOLUCIONES DE PRODUCTOS  ######################################
 
-	###################################### FUNCION PARA LISTAR CREDITOS DE VENTAS DE PRODUCTOS  ###################################### 
+	###################################### FUNCION PARA LISTAR CREDITOS DE VENTAS DE PRODUCTOS  ######################################
 	public function ListarCreditos()
 	{
 		self::SetNames();
 		//$sql ="SELECT * FROM ventas LEFT JOIN clientes ON ventas.codcliente=clientes.codcliente WHERE ventas.tipopagove = 'CREDITO'";
-		$sql = "SELECT 
+		$sql = "SELECT
   ventas.codventa, ventas.totalpago, ventas.statusventa, abonoscreditos.fechaabono, SUM(abonoscreditos.montoabono) as abonototal, clientes.codcliente, clientes.cedcliente, clientes.nomcliente, clientes.tlfcliente, clientes.emailcliente, cajas.nrocaja
 FROM
- (ventas LEFT JOIN abonoscreditos ON ventas.codventa=abonoscreditos.codventa) LEFT JOIN clientes ON 
+ (ventas LEFT JOIN abonoscreditos ON ventas.codventa=abonoscreditos.codventa) LEFT JOIN clientes ON
  clientes.codcliente=ventas.codcliente LEFT JOIN cajas ON ventas.codcaja = cajas.codcaja WHERE ventas.tipopagove ='CREDITO' GROUP BY ventas.codventa";
 
 		foreach ($this->dbh->query($sql) as $row) {
@@ -5141,7 +5147,7 @@ FROM
 		return $this->p;
 		$this->dbh = null;
 	}
-	######################################  FIN DE FUNCION PARA LISTAR CREDITOS DE VENTAS DE PRODUCTOS ###################################### 
+	######################################  FIN DE FUNCION PARA LISTAR CREDITOS DE VENTAS DE PRODUCTOS ######################################
 
 	################################################ FUNCION PARA MOSTRAR CREDITOS DE VENTAS POR CODIGO ################################################
 	public function CreditosPorId()
@@ -5192,10 +5198,10 @@ FROM
 	public function BuscarCreditosFechas()
 	{
 		self::SetNames();
-		$sql = "SELECT 
+		$sql = "SELECT
   ventas.codventa, ventas.totalpago, ventas.fechavencecredito, ventas.statusventa, ventas.fechaventa, abonoscreditos.fechaabono, SUM(abonoscreditos.montoabono) as abonototal, clientes.codcliente, clientes.cedcliente, clientes.nomcliente, clientes.tlfcliente, clientes.emailcliente, cajas.nrocaja
 FROM
- (ventas LEFT JOIN abonoscreditos ON ventas.codventa=abonoscreditos.codventa) LEFT JOIN clientes ON 
+ (ventas LEFT JOIN abonoscreditos ON ventas.codventa=abonoscreditos.codventa) LEFT JOIN clientes ON
  clientes.codcliente=ventas.codcliente LEFT JOIN cajas ON ventas.codcaja = cajas.codcaja WHERE DATE_FORMAT(ventas.fechaventa,'%Y-%m-%d') >= ? AND DATE_FORMAT(ventas.fechaventa,'%Y-%m-%d') <= ? AND ventas.tipopagove ='CREDITO' GROUP BY ventas.codventa";
 		$stmt = $this->dbh->prepare($sql);
 		$stmt->bindValue(1, trim(date("Y-m-d", strtotime($_GET['desde']))));
@@ -5390,7 +5396,7 @@ FROM
 
 
 
-	######################################   FUNCION PARA LISTAR DEVOLUCIONES DE PRODUCTOS  ###################################### 
+	######################################   FUNCION PARA LISTAR DEVOLUCIONES DE PRODUCTOS  ######################################
 	public function ListarDevoluciones()
 	{
 		self::SetNames();
@@ -5796,12 +5802,12 @@ FROM
 	public function ListarComprasDevolucion()
 	{
 		self::SetNames();
-		$sql = "SELECT 
+		$sql = "SELECT
   detallecompras.codproducto, detallecompras.producto, detallecompras.codcategoria, detallecompras.precio1, detallecompras.lote, categorias.nomcategoria, SUM(detallecompras.cantcompra) as compra, SUM(detalledevolucion.cantdevolucion) as devolucion, compras.codproveedor
 FROM
- (detallecompras LEFT OUTER JOIN detalledevolucion ON detallecompras.codproducto=detalledevolucion.codproducto) LEFT OUTER JOIN categorias ON 
- categorias.codcategoria=detallecompras.codcategoria LEFT OUTER JOIN compras ON 
- compras.codcompra=detallecompras.codcompra LEFT OUTER JOIN productos ON 
+ (detallecompras LEFT OUTER JOIN detalledevolucion ON detallecompras.codproducto=detalledevolucion.codproducto) LEFT OUTER JOIN categorias ON
+ categorias.codcategoria=detallecompras.codcategoria LEFT OUTER JOIN compras ON
+ compras.codcompra=detallecompras.codcompra LEFT OUTER JOIN productos ON
  productos.codproducto=detallecompras.codproducto WHERE compras.codproveedor = ? GROUP BY detallecompras.codproducto, detallecompras.lote";
 
 		$stmt = $this->dbh->prepare($sql);
@@ -5993,7 +5999,7 @@ FROM
 	}
 	######################################  FIN DE FUNCION PARA REGISTRAR FACTURAS DE SERVICIOS ######################################
 
-	######################################   FUNCION PARA LISTAR FACTURAS DE SERVICIOS ###################################### 
+	######################################   FUNCION PARA LISTAR FACTURAS DE SERVICIOS ######################################
 	public function ListarServicios()
 	{
 		self::SetNames();
@@ -6017,7 +6023,7 @@ FROM
 			$this->dbh = null;
 		}
 	}
-	######################################  FIN DE FUNCION PARA LISTAR FACTURAS DE SERVICIOS ###################################### 
+	######################################  FIN DE FUNCION PARA LISTAR FACTURAS DE SERVICIOS ######################################
 
 	######################################  FUNCION PARA LISTAR DETALLES DE FACTURAS DE SERVICIOS ######################################
 	public function ListarDetallesServicios()
@@ -6288,7 +6294,7 @@ FROM
 	public function BuscarServiciosFechas()
 	{
 		self::SetNames();
-		$sql = "SELECT detalleservicios.codservicio, cajas.nrocaja, servicios.codcaja, servicios.subtotal, servicios.totaliva, servicios.totaldescuento, servicios.totalpago, servicios.fechaservicio, SUM(detalleservicios.cantservicio) as cantidad FROM (detalleservicios LEFT JOIN servicios ON detalleservicios.fechadetalleservicio=servicios.fechaservicio) 
+		$sql = "SELECT detalleservicios.codservicio, cajas.nrocaja, servicios.codcaja, servicios.subtotal, servicios.totaliva, servicios.totaldescuento, servicios.totalpago, servicios.fechaservicio, SUM(detalleservicios.cantservicio) as cantidad FROM (detalleservicios LEFT JOIN servicios ON detalleservicios.fechadetalleservicio=servicios.fechaservicio)
 LEFT JOIN cajas ON cajas.codcaja=servicios.codcaja WHERE servicios.fechaservicio BETWEEN ? AND ? GROUP BY detalleservicios.codservicio";
 		$stmt = $this->dbh->prepare($sql);
 		$stmt->bindValue(1, trim(date("Y-m-d", strtotime($_GET['desde']))));
@@ -6315,7 +6321,7 @@ LEFT JOIN cajas ON cajas.codcaja=servicios.codcaja WHERE servicios.fechaservicio
 	public function BuscarServiciosCajas()
 	{
 		self::SetNames();
-		$sql = "SELECT detalleservicios.codservicio, cajas.nrocaja, servicios.codcaja, servicios.subtotal, servicios.totaliva, servicios.totaldescuento, servicios.totalpago, servicios.fechaservicio, SUM(detalleservicios.cantservicio) as cantidad FROM (detalleservicios LEFT JOIN servicios ON detalleservicios.fechadetalleservicio=servicios.fechaservicio) 
+		$sql = "SELECT detalleservicios.codservicio, cajas.nrocaja, servicios.codcaja, servicios.subtotal, servicios.totaliva, servicios.totaldescuento, servicios.totalpago, servicios.fechaservicio, SUM(detalleservicios.cantservicio) as cantidad FROM (detalleservicios LEFT JOIN servicios ON detalleservicios.fechadetalleservicio=servicios.fechaservicio)
 LEFT JOIN cajas ON cajas.codcaja=servicios.codcaja WHERE servicios.codcaja = ? and servicios.fechaservicio BETWEEN ? AND ? GROUP BY detalleservicios.codservicio";
 
 		$stmt = $this->dbh->prepare($sql);
@@ -6401,7 +6407,7 @@ LEFT JOIN cajas ON cajas.codcaja=servicios.codcaja WHERE servicios.codcaja = ? a
 
 		if ($_SESSION['acceso'] == "administrador") {
 
-			$sql = "SELECT detalleservicios.codservicio, cajas.nrocaja, servicios.codcaja, servicios.subtotal, servicios.totaliva, servicios.totaldescuento, servicios.totalpago, servicios.fechaservicio, SUM(detalleservicios.cantservicio) as cantidad FROM (detalleservicios LEFT JOIN servicios ON detalleservicios.fechadetalleservicio=servicios.fechaservicio) 
+			$sql = "SELECT detalleservicios.codservicio, cajas.nrocaja, servicios.codcaja, servicios.subtotal, servicios.totaliva, servicios.totaldescuento, servicios.totalpago, servicios.fechaservicio, SUM(detalleservicios.cantservicio) as cantidad FROM (detalleservicios LEFT JOIN servicios ON detalleservicios.fechadetalleservicio=servicios.fechaservicio)
 LEFT JOIN cajas ON cajas.codcaja=servicios.codcaja WHERE DATE_FORMAT(fechaservicio,'%Y-%m-%d') = '" . date('Y-m-d') . "' GROUP BY detalleservicios.codservicio";
 			foreach ($this->dbh->query($sql) as $row) {
 				$this->p[] = $row;
@@ -6410,7 +6416,7 @@ LEFT JOIN cajas ON cajas.codcaja=servicios.codcaja WHERE DATE_FORMAT(fechaservic
 			$this->dbh = null;
 		} else {
 
-			$sql = "SELECT detalleservicios.codservicio, cajas.nrocaja, servicios.codcaja, servicios.subtotal, servicios.totaliva, servicios.totaldescuento, servicios.totalpago, servicios.fechaservicio, SUM(detalleservicios.cantservicio) as cantidad FROM (detalleservicios LEFT JOIN servicios ON detalleservicios.fechadetalleservicio=servicios.fechaservicio) 
+			$sql = "SELECT detalleservicios.codservicio, cajas.nrocaja, servicios.codcaja, servicios.subtotal, servicios.totaliva, servicios.totaldescuento, servicios.totalpago, servicios.fechaservicio, SUM(detalleservicios.cantservicio) as cantidad FROM (detalleservicios LEFT JOIN servicios ON detalleservicios.fechadetalleservicio=servicios.fechaservicio)
 LEFT JOIN cajas ON cajas.codcaja=servicios.codcaja WHERE servicios.codigo = '" . $_SESSION["codigo"] . "' and DATE_FORMAT(fechaservicio,'%Y-%m-%d') = '" . date('Y-m-d') . "' GROUP BY detalleservicios.codservicio";
 			foreach ($this->dbh->query($sql) as $row) {
 				$this->p[] = $row;
