@@ -285,7 +285,7 @@ class Login extends Db
 	public function ConfiguracionPorId()
 	{
 		self::SetNames();
-		$sql = " select * from configuracion where id = ? ";
+		$sql = " select * from configuracion";
 		$stmt = $this->dbh->prepare($sql);
 		$stmt->execute(array('1'));
 		$num = $stmt->rowCount();
@@ -309,34 +309,6 @@ class Login extends Db
 			echo "1";
 			exit;
 		}
-		$sql = " update configuracion set "
-			. " rifempresa = ?, "
-			. " nomempresa = ?, "
-			. " direcempresa = ?, "
-			. " tlfempresa = ?, "
-			. " cedresponsable = ?, "
-			. " nomresponsable = ?, "
-			. " correoresponsable = ?, "
-			. " tlfresponsable = ?, "
-			. " ivac = ?, "
-			. " ivav = ?, "
-			. " ivas = ? "
-			. " where "
-			. " id = ?;
-			   ";
-		$stmt = $this->dbh->prepare($sql);
-		$stmt->bindParam(1, $rifempresa);
-		$stmt->bindParam(2, $nomempresa);
-		$stmt->bindParam(3, $direcempresa);
-		$stmt->bindParam(4, $tlfempresa);
-		$stmt->bindParam(5, $cedresponsable);
-		$stmt->bindParam(6, $nomresponsable);
-		$stmt->bindParam(7, $correoresponsable);
-		$stmt->bindParam(8, $tlfresponsable);
-		$stmt->bindParam(9, $ivac);
-		$stmt->bindParam(10, $ivav);
-		$stmt->bindParam(11, $ivas);
-		$stmt->bindParam(12, $id);
 
 		$rifempresa = strip_tags($_POST["rifempresa"]);
 		$nomempresa = strip_tags($_POST["nomempresa"]);
@@ -350,8 +322,71 @@ class Login extends Db
 		$ivav = strip_tags($_POST["ivav"]);
 		$ivas = strip_tags($_POST["ivas"]);
 		$id = strip_tags($_POST["id"]);
-		$stmt->execute();
 
+		$sql = "select count(id) as config from configuracion";
+		$stmt = $this->dbh->prepare($sql);
+		$stmt->execute();
+		$config = intval($stmt->fetch()[0]);
+		
+		if($config == 0){
+				$sql = "insert configuracion set "
+				. " rifempresa = ?, "
+				. " nomempresa = ?, "
+				. " direcempresa = ?, "
+				. " tlfempresa = ?, "
+				. " cedresponsable = ?, "
+				. " nomresponsable = ?, "
+				. " correoresponsable = ?, "
+				. " tlfresponsable = ?, "
+				. " ivac = ?, "
+				. " ivav = ?, "
+				. " ivas = ? ";
+			$stmt = $this->dbh->prepare($sql);
+			$stmt->bindParam(1, $rifempresa);
+			$stmt->bindParam(2, $nomempresa);
+			$stmt->bindParam(3, $direcempresa);
+			$stmt->bindParam(4, $tlfempresa);
+			$stmt->bindParam(5, $cedresponsable);
+			$stmt->bindParam(6, $nomresponsable);
+			$stmt->bindParam(7, $correoresponsable);
+			$stmt->bindParam(8, $tlfresponsable);
+			$stmt->bindParam(9, $ivac);
+			$stmt->bindParam(10, $ivav);
+			$stmt->bindParam(11, $ivas);
+			$stmt->execute();
+			echo "<div class='alert alert-success'>";
+			echo "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
+			echo "<span class='fa fa-check-square-o'></span> LOS DATOS DE CONFIGURACI&Oacute;N DEL SISTEMA FUERON AGREGADOS EXITOSAMENTE </div>";
+			echo "</div>";
+			exit;
+		}
+
+		$sql = "update configuracion set "
+			. " rifempresa = ?, "
+			. " nomempresa = ?, "
+			. " direcempresa = ?, "
+			. " tlfempresa = ?, "
+			. " cedresponsable = ?, "
+			. " nomresponsable = ?, "
+			. " correoresponsable = ?, "
+			. " tlfresponsable = ?, "
+			. " ivac = ?, "
+			. " ivav = ?, "
+			. " ivas = ? ";
+		$stmt = $this->dbh->prepare($sql);
+		$stmt->bindParam(1, $rifempresa);
+		$stmt->bindParam(2, $nomempresa);
+		$stmt->bindParam(3, $direcempresa);
+		$stmt->bindParam(4, $tlfempresa);
+		$stmt->bindParam(5, $cedresponsable);
+		$stmt->bindParam(6, $nomresponsable);
+		$stmt->bindParam(7, $correoresponsable);
+		$stmt->bindParam(8, $tlfresponsable);
+		$stmt->bindParam(9, $ivac);
+		$stmt->bindParam(10, $ivav);
+		$stmt->bindParam(11, $ivas);
+		$stm->bindParam(12, $id);
+		$stmt->execute();
 		echo "<div class='alert alert-info'>";
 		echo "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
 		echo "<span class='fa fa-check-square-o'></span> LOS DATOS DE CONFIGURACI&Oacute;N DEL SISTEMA FUERON ACTUALIZADOS EXITOSAMENTE </div>";
