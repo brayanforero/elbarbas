@@ -285,7 +285,7 @@ class Login extends Db
 	public function ConfiguracionPorId()
 	{
 		self::SetNames();
-		$sql = " select * from configuracion";
+		$sql = " select * from configuracion where id = ?";
 		$stmt = $this->dbh->prepare($sql);
 		$stmt->execute(array('1'));
 		$num = $stmt->rowCount();
@@ -372,7 +372,8 @@ class Login extends Db
 			. " tlfresponsable = ?, "
 			. " ivac = ?, "
 			. " ivav = ?, "
-			. " ivas = ? ";
+			. " ivas = ? "
+			."where id = ?";
 		$stmt = $this->dbh->prepare($sql);
 		$stmt->bindParam(1, $rifempresa);
 		$stmt->bindParam(2, $nomempresa);
@@ -385,7 +386,7 @@ class Login extends Db
 		$stmt->bindParam(9, $ivac);
 		$stmt->bindParam(10, $ivav);
 		$stmt->bindParam(11, $ivas);
-		$stm->bindParam(12, $id);
+		 $stmt->bindParam(12, $id);
 		$stmt->execute();
 		echo "<div class='alert alert-info'>";
 		echo "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
